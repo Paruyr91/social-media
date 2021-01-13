@@ -10,6 +10,6 @@ const router=require('./server/router')
 app.use(router)
 
 
-server.listen(80, ()=>{
+server.listen(PORT, ()=>{
 console.log(`server started at${PORT}`)
 }) 
