@@ -2,7 +2,7 @@ const express = require('express')
 const RegisterController = require('./controllers/RegisterController')
 const router= express.Router()
 const User = require('./models/user')
-const apiurl='/v1/api/'
+const apiurl='/api/v1/'
 
 
 router.get('/', async (req, res)=>{
