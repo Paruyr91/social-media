@@ -1,11 +1,25 @@
 const express = require('express')
 const router= express.Router()
-const { Client } = require('pg');
+const User = require('./models/user')
 
 
-router.get('/', (req, res)=>{
+router.get('/', async (req, res)=>{
+let data
+    await User.create({ 
+        email:'aa@aa.aa',
+        password:'kkkkkkkk',
+        name: 'kkkkk',
+        surname:'kkkkkkkkkk',
+        age:50,
+       
+       }).then(function(item){
+        data=item
+           
+         }).catch(function (err) {
+             console.log(err)
+         });
 
-    res.send("<h1>hello</h1>")
+    res.send(data)
 })
 
 

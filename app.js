@@ -15,9 +15,11 @@ const router=require('./server/router')
 
 app.use(router)
 
-db.sequelize.sync().then(function() {
 
- server.listen(8080, ()=>{
+
+db.sync().then(function() {
+
+ server.listen(PORT, ()=>{
 console.log(`server started at${PORT}`)
 }) 
 
