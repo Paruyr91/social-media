@@ -31,7 +31,7 @@ app.use(router)
 
 db.sync().then(function() {
 
- server.listen(8080, ()=>{
+ server.listen(PORT, ()=>{
     console.log(`server started at${PORT}`)
 }) 
 
