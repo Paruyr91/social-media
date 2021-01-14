@@ -1,18 +1,13 @@
 const express = require('express')
+const RegisterController = require('./controllers/RegisterController')
 const router= express.Router()
 const User = require('./models/user')
+const apiurl='/v1/api/'
 
 
 router.get('/', async (req, res)=>{
 let data
-    await User.create({ 
-        email:'aa@aa.aa',
-        password:'kkkkkkkk',
-        name: 'kkkkk',
-        surname:'kkkkkkkkkk',
-        age:50,
-       
-       }).then(function(item){
+    await User.findAll().then(function(item){
         data=item
            
          }).catch(function (err) {
@@ -22,6 +17,8 @@ let data
     res.send(data)
 })
 
+router.get(`${apiurl}user`, RegisterController.allUsers)
+router.post(`${apiurl}user`, RegisterController.addUser)
 
 
 

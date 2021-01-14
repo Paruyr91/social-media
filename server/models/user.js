@@ -2,7 +2,7 @@
 const { Sequelize, Op, Model, DataTypes} = require('sequelize');
 const sequelize = require('./index')
   const bcrypt=require('bcrypt');
-  const tiv=10
+  const hashNumber=10
 
   const User = sequelize.define("users", {
     email: {type: DataTypes.STRING,
@@ -60,13 +60,13 @@ const sequelize = require('./index')
   });
   
   User.beforeCreate(async (user, options) => {
-    const hashedPassword = await bcrypt.hashSync(user.password,tiv);
+    const hashedPassword = await bcrypt.hashSync(user.password,hashNumber);
     user.password = hashedPassword;
   });
  
   
 
-  User.sync({force:true}) 
+  // User.sync({force:true}) 
  
  
 
