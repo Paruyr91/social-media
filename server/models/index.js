@@ -1,9 +1,7 @@
 
+const Sequelize = require('sequelize')
 
-  var Sequelize = require('sequelize')
-    , sequelize = null
-
-    sequelize = new Sequelize(process.env.DATABASE_URL, {
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
       dialect:  'postgres',
       protocol: 'postgres',
       port: 5432,
@@ -17,12 +15,5 @@
       },
 
     })
-  
-  /*
-    Associations can be defined here. E.g. like this:
-    global.db.User.hasMany(global.db.SomethingElse)
-  */
-
-
 
 module.exports = sequelize
