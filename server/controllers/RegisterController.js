@@ -52,12 +52,13 @@ async registerUser(req,res){
         let token =accesstoken(user) 
         sendmail(user,token).catch(console.error);
 
-        res.status(201).send({success,URL})
+        res.status(201).send({success,url:req.headers.host})
+   
        
     }else{
          res.status(404).send({success:false,error:error})
     }
-          
+         
 }
    
 async loginUser(req,res){
