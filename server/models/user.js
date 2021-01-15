@@ -52,10 +52,7 @@ const sequelize = require('./index')
             
           }
     }, 
-    admin:{
-      type:DataTypes.BOOLEAN,
-      defaultValue:false 
-    }
+
             
   });
   

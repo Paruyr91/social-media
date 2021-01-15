@@ -5,14 +5,14 @@ const server=require('http').Server(app)
 require('dotenv').config()
 const db= require('./server/models/index')
 const PORT=process.env.PORT || 8080
-const router=require('./server/router')
+const apirouter=require('./server/routes/apirouter')
 const session=require('express-session')
-
+const cors=require('cors')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({
     extended:false
 }))
-
+app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json())
 
@@ -25,15 +25,16 @@ app.use(
 )
 
 
-app.use(router)
+
+app.use('/api/v1/',apirouter)
 
 
 
 db.sync().then(function() {
 
- server.listen(PORT, ()=>{
-    console.log(`server started at${PORT}`)
-}) 
+   server.listen(PORT, ()=>{
+      console.log(`server started at${PORT}`)
+     }) 
 
   });
 
