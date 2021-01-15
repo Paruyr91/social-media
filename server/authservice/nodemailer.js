@@ -1,9 +1,8 @@
 "use strict";
 const nodemailer = require("nodemailer");
 
-const URL=process.env.ROOT_URL || 'http://localhost:8080/'
 
-module.exports= async function main(user, token) {
+module.exports= async function main(user, token,url) {
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -21,7 +20,7 @@ module.exports= async function main(user, token) {
     to:user.email,
     subject: "Hello ✔", 
     text: "Hello world?", 
-    html: `<h1><a href="${URL}verify-account/${token}">Activate your account...</a></h1>`, // html body
+    html: `<h1><a href="${url}verify-account/${token}">Activate your account...</a></h1>`, // html body
   });
  
 }

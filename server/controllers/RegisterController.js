@@ -48,11 +48,10 @@ async registerUser(req,res){
     if(success){
         delete user.password
         delete user.activated
-
         let token =accesstoken(user) 
-        sendmail(user,token).catch(console.error);
+        sendmail(user,token,req.headers.host).catch(console.error);
 
-        res.status(201).send({success,url:req.headers.host})
+        res.status(201).send({success,})
    
        
     }else{
