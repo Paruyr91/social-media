@@ -3,6 +3,7 @@ const User= require('../models/user')
 const bcrypt=require('bcrypt')
 const accesstoken=require('../authservice/token')
 const jwt = require( 'jsonwebtoken' );
+const sendmail=require('../authservice/nodemailer')
 
   class RegisterControler{
     constructor(){
@@ -24,22 +25,35 @@ async  allUsers(req,res){
 
 async registerUser(req,res){
 
-    const inputValue=req.body
-     req.session.inputValue=inputValue
+    let user
+    let success=false
+    let error
+
 
      await User.create({ 
          email:req.body.email,
          password:req.body.password,
          name: req.body.name,
          surname:req.body.surname,
-         age:req.body.age,
-        
         }).then(function(item){
-            res.status(201).send({success:true})
+            success=true
+            user=item.dataValues
         }).catch(function (err) {
-            console.log(err)
-           res.status(404).send({success:false,error:err.error})
+            error={... err}
         });
+
+    if(success){
+        delete user.password
+        delete user.activated
+
+        let token =accesstoken(user) 
+        sendmail(user,token).catch(console.error);
+
+        res.status(201).send({success})
+       
+    }else{
+         res.status(404).send({success:false,error:error})
+    }
           
 }
    
@@ -51,6 +65,8 @@ async loginUser(req,res){
          if(us){
             if(!bcrypt.compareSync(req.body.password,us.dataValues.password)){
                 return {password:'enter curect password'}
+            }else if(!us.activated){
+                return {activated:'Activate your Acaunt from your email'}
             }else{
                 user={... us.dataValues}
             }
@@ -58,12 +74,13 @@ async loginUser(req,res){
              return {email:'enter currect Email'}
          }
      })
+
+
     if(error){
-       req.session.validationError=error
        res.status(404).send(error)
     }else{
         delete user.password
-        delete user.admin
+        delete user.activated
 
         let token =accesstoken(user)
         let expiertime= Date.now()+7100000

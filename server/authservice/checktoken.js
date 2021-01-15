@@ -3,7 +3,8 @@ const secret =process.env.SECRET_TOKEN_KEY
 
 
 module.exports=function checktoken(req,res,next){
-    if(req.path==='/login' || req.path==='/register' ){
+    console.log(req.path)
+    if(req.path==='/login' || req.path==='/register' || req.path==='/verify-account' ){
         next()
     }else if (req.headers.authorization) {
                 try{
@@ -22,5 +23,7 @@ module.exports=function checktoken(req,res,next){
             name: "JsonWebTokenError",
             message: "Token is absent"
         })
-    }
+    } 
 }
+
+// ww.com/verify--/token
