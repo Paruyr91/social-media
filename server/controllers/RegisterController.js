@@ -5,6 +5,9 @@ const accesstoken=require('../authservice/token')
 const jwt = require( 'jsonwebtoken' );
 const sendmail=require('../authservice/nodemailer')
 
+const URL=process.env.ROOT_URL || 'http://localhost:8080/'
+
+
   class RegisterControler{
     constructor(){
     
@@ -49,7 +52,7 @@ async registerUser(req,res){
         let token =accesstoken(user) 
         sendmail(user,token).catch(console.error);
 
-        res.status(201).send({success})
+        res.status(201).send({success,URL})
        
     }else{
          res.status(404).send({success:false,error:error})

@@ -15,7 +15,7 @@ module.exports= async function main(user, token) {
       pass: "paruyrars!@#", 
     },
   });
-
+  
   let info = await transporter.sendMail({
     from: '"Fred Foo 👻" <paruyrars@gmail.com>',
     to:user.email,
@@ -23,6 +23,6 @@ module.exports= async function main(user, token) {
     text: "Hello world?", 
     html: `<h1><a href="${URL}verify-account/${token}">Activate your account...</a></h1>`, // html body
   });
-
+ 
 }
-
+ 
