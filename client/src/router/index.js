@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,17 @@ const router = new VueRouter({
       ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const isRequiredAuth = to.matched.some(route => route.meta.requiredAuth)
+  const isAuthenticated = store.getters['Auth/IsAuthenticated']
+
+  if (isRequiredAuth && !isAuthenticated) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -7,11 +7,16 @@ import './assets/scss/main.scss'
 // Globally Registered Components
 import './utils/GlobalComponents'
 
+// VeeValidate
+import VeeValidate from 'vee-validate'
+
 // Vue Router
 import router from './router'
 
 // Vuex store
 import store from './store'
+
+Vue.use(VeeValidate)
 
 Vue.config.productionTip = false
 
