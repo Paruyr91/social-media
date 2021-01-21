@@ -55,7 +55,7 @@ async registerUser(req,res){
    
        
     }else{
-         res.status(404).send({success:false,error:error})
+         res.status(412).send({success:false,error:error})
     }
          
 }
