@@ -1,6 +1,7 @@
 "use strict";
 const nodemailer = require("nodemailer");
 
+// https://accounts.google.com/b/0/DisplayUnlockCaptcha
 
 module.exports= async function main(user, token,url) {
 
@@ -23,6 +24,6 @@ module.exports= async function main(user, token,url) {
     html: `<h1><a href="http://${url}/verify-account/${token}">Activate your account</a></h1>`, // html body
   });
  
-} 
+}   
  
    
