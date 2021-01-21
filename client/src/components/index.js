@@ -1,5 +1,9 @@
-// import textInput from './inputs/TextInput.vue'
+import PrimaryInput from './inputs/PrimaryInput.vue'
+import PrimaryButton from './buttons/PrimaryButton.vue'
+import SecondaryButton from './buttons/SecondaryButton.vue'
 
 export default [
-  // textInput,
+  PrimaryInput,
+  PrimaryButton,
+  SecondaryButton
 ]
