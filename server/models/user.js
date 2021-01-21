@@ -43,19 +43,19 @@ const sequelize = require('./index')
            isAlpha: true,   
            }
     },      
-    age:{type:DataTypes.INTEGER,
-           allowNull:false,
-           validate: {
-           len: [2],  
-           min:{args:16, msg:"enter currect age up 16 "  },
-           max:{args:150, msg:"enter currect age "  }
+    age:{type: DataTypes.DATE,
+           allowNull:true,
+           validate: {  
+           isDate:{args:true, msg:"enter Date"  },
+           isBefore:{args:(new Date((Date.now() - (16*365*24*3600*1000))).toISOString()) , msg:"enter currect age up 16 "  }
             
           }
     }, 
-    admin:{
-      type:DataTypes.BOOLEAN,
-      defaultValue:false 
-    }
+    activated:{type:Sequelize.BOOLEAN, 
+               allowNull: false, 
+               defaultValue: false
+               }
+
             
   });
   
@@ -66,7 +66,7 @@ const sequelize = require('./index')
  
   
 
-  // User.sync({force:true}) 
+  User.sync({force:true}) 
  
  
 
