@@ -3,7 +3,6 @@ const secret =process.env.SECRET_TOKEN_KEY
 
 
 module.exports=function checktoken(req,res,next){
-    console.log(req.path)
     if(req.path==='/login' || req.path==='/register' || req.path==='/verify-account' ){
         next()
     }else if (req.headers.authorization) {
@@ -11,7 +10,7 @@ module.exports=function checktoken(req,res,next){
                     let [tokenname, token]=req.headers.authorization.split(' ')
                     if(tokenname!=="Bearer")throw "Token is absent"
                     let decoded = jwt.verify(token, secret ) 
-                    req.decoded={... decoded}
+                    req.decoded={... decoded.user}
                     return next()
                 }catch(error){
                     console.log(error.message);
@@ -26,4 +25,4 @@ module.exports=function checktoken(req,res,next){
     } 
 }
 
-// ww.com/verify--/token
+// ww.com/verify--/token 

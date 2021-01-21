@@ -84,8 +84,12 @@ async loginUser(req,res){
     }else{
         delete user.password
         delete user.activated
-
-        let token =accesstoken(user)
+        let token =accesstoken({
+                                id:user.id,
+                                email:user.email,
+                                name:user.name,
+                                surname:user.surname,
+                              })
         let expiertime= Date.now()+7100000
 
         //res.cookie( 'my-token', token, {httpOnly: true})

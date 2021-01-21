@@ -26,7 +26,7 @@ const sequelize = require('./index')
     password: {type: DataTypes.STRING,
                allowNull:false,
                validate: {
-               len: [4, 10]
+               len: [5]
                 }
             },
     name: {type:DataTypes.STRING,
@@ -43,7 +43,7 @@ const sequelize = require('./index')
            isAlpha: true,   
            }
     },      
-    age:{type: DataTypes.DATE,
+    bourn_at:{type: DataTypes.DATE,
            allowNull:true,
            validate: {  
            isDate:{args:true, msg:"enter Date"  },
@@ -53,23 +53,31 @@ const sequelize = require('./index')
     }, 
     activated:{type:Sequelize.BOOLEAN, 
                allowNull: false, 
-               defaultValue: false
+               defaultValue:true
                }
 
             
   });
-  
-  User.beforeCreate(async (user, options) => {
-    const hashedPassword = await bcrypt.hashSync(user.password,hashNumber);
-    user.password = hashedPassword;
+
+
+ 
+  User.beforeCreate(async (user) => {
+    user.password= await bcrypt.hashSync(user.password,hashNumber);
   });
  
+ 
+ 
+  User.beforeUpdate(async (user) => {
+    user.password= await bcrypt.hashSync(user.password,hashNumber);
+    
+  });
+   
   
 
-  User.sync({force:true}) 
+ User.sync({force:true}) 
  
  
-
+ 
   module.exports=User
  
  
