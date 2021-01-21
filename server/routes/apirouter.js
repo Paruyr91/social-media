@@ -25,6 +25,8 @@ router.post(`/login`, RegisterController.loginUser)
 
 router.patch('/user', UserController.updateuser)
 
+router.delete('/user', UserController.deleteuser)
+
 
 
  module.exports=router   
