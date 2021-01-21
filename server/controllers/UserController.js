@@ -1,13 +1,4 @@
-const expres = require('express')
 const User= require('../models/user')
-const bcrypt=require('bcrypt')
-const accesstoken=require('../authservice/token')
-const jwt = require( 'jsonwebtoken' );
-const sendmail=require('../authservice/nodemailer')
-
-const URL=process.env.ROOT_URL || 'http://localhost:8080/'
-
-
   class UserControler{
     constructor(){
     
@@ -20,7 +11,6 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
                 if(req.body){
                    for(let i in req.body){
                          user[i]=req.body[i]
-                      console.log(i)
                    }
                 }
                user.save().then(a=>{
@@ -33,8 +23,16 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
           })
     }
 
-
-     
+    async deleteuser(req,res){
+         await User.destroy({
+            where: {id:req.decoded.id}
+            }).then(a=>{
+               console.log(a)
+            res.send({success:true})
+         }).catch(err=>{
+            res.status(404).send({success:false,error:err})
+         })
+    }
 
  }
-  module.exports= new UserControler
+module.exports= new UserControler
