@@ -5,6 +5,7 @@ const User = require('../models/user')
 const checktoken= require('../authservice/checktoken')
 const UserController = require('../controllers/UserController')
 const multer = require('multer')
+const ImageController = require('../controllers/ImageController')
 
 
 let storage=multer.diskStorage({
@@ -39,6 +40,6 @@ router.post(`/verify-account`, RegisterController.verifyaccount)
 
 router.patch('/user',upload.single('image'), UserController.updateuser)
 router.delete('/user', UserController.deleteuser)
-
+router.post('/image', upload.single('image'), ImageController.addiamge)
 
  module.exports=router    
