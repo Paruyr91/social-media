@@ -8,13 +8,16 @@ const PORT=process.env.PORT || 8080
 const apirouter=require('./server/routes/apirouter')
 const session=require('express-session')
 const cors=require('cors')
-app.use(express.static('public'))
+app.use(express.static('server/public'))
 app.use(bodyParser.urlencoded({
-    extended:false
+    extended:false,
+   
 }))
 app.use(cors())
 app.use(bodyParser.json())
-app.use(express.json())
+
+app.use(express.json());
+
 
 app.use(
   session({
