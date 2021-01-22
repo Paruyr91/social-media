@@ -65,14 +65,14 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
         let user;
         const error =await User.findOne({
 
-        where: {email:req.body.email},
-        include: {
-            model: Image,
-            where:{
-                 profilepic:{[Op.ne]:false,  } 
-            },
-            attributes: ['imagedata']
-          }
+        where: {email:req.body.email}
+        // include: {
+        //     model: Image,
+        //     where:{
+        //          profilepic:{[Op.ne]:false,  } 
+        //     },
+        //     attributes: ['imagedata']
+        //   }
         }).then(function(us) {
             if(us){
                 if(!bcrypt.compareSync(req.body.password,us.dataValues.password)){
