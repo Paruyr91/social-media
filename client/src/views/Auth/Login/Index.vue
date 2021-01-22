@@ -41,48 +41,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-container {
-  background-color: #d8e8f7;
-
-  .main-container__inner {
-    top: 50%;
-    left: 50%;
-    max-width: 900px;
-    height: 500px;
-    transform: translate(-50%, -50%);
-
-    .main-container__item {
-      flex-basis: 50%;
-
-      &.full-width {
-        flex-basis: 100%;
-      }
-      &.main-container__image {
-        background-image: url(../../../assets/images/login.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
-      &.main-container__form {
-
-        .main-container__form-btn {
-          flex-basis: 45%;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 420px) {
-  .main-container__form-btns {
-    flex-direction: column;
-
-    .main-container__form-btn {
-      flex-basis: 100%;
-
-      &:not(:last-child) {
-        margin-bottom: 15px;
-      }
-    }
-  }
-}
+  @import './scss/';
 </style>

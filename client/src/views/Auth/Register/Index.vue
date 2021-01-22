@@ -84,78 +84,16 @@ export default {
       if (!isValid) return
 
       try {
-        const response = await this.Register(this.payload)
-        console.log('component: ', response)
-        this.ResetFields()
+        await this.Register(this.payload)
+        this.$router.push({ name: 'login' })
       } catch (err) {
         console.log('error: ', err)
       }
-    },
-    ResetFields () {
-      const keys = Object.keys(this.payload)
-
-      keys.forEach(key => {
-        this.payload[key] = ''
-      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.main-container {
-  min-height: 100vh;
-  height: 100%;
-  background-color: #d8e8f7;
-
-  .main-container__inner {
-    max-width: 1100px;
-    min-height: 500px;
-
-    .main-container__item {
-
-      &.left-box {
-        height: 500px;
-        flex-basis: 40%;
-      }
-      &.right-box {
-        flex-basis: 60%;
-        transform: translateY(-80px);
-      }
-      &.full-width {
-        flex-basis: 100%;
-      }
-      &.main-container__image {
-        background-image: url(../../../assets/images/register.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
-      &.main-container__form {
-
-        .main-container__form-col {
-          flex-basis: 50%;
-          flex-grow: 1;
-          min-width: 230px;
-        }
-        .main-container__form-btn {
-          flex-basis: 40%;
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 420px) {
-  .main-container__form-btns {
-    flex-direction: column;
-
-    .main-container__form-btn {
-      flex-basis: 100% !important;
-
-      &:not(:last-child) {
-        margin-bottom: 15px;
-      }
-    }
-  }
-}
+  @import './scss/';
 </style>
