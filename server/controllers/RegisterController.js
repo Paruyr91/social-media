@@ -99,10 +99,6 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
             })
         }
     }
-    async verifyaccount(req,res){
-        
-    }
-     
 
 }
   module.exports= new RegisterControler

@@ -36,10 +36,12 @@ let data
  
 router.post(`/register`, RegisterController.registerUser)
 router.post(`/login`, RegisterController.loginUser)
-router.post(`/verify-account`, RegisterController.verifyaccount)
 
-router.patch('/user',upload.single('image'), UserController.updateuser)
+router.patch('/user', UserController.updateuser)
 router.delete('/user', UserController.deleteuser)
+
 router.post('/image', upload.single('image'), ImageController.addiamge)
+// router.patch('/image',  ImageController.updateiamge)
+
 
  module.exports=router    
