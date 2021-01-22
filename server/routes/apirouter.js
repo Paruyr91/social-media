@@ -41,7 +41,7 @@ router.patch('/user', UserController.updateuser)
 router.delete('/user', UserController.deleteuser)
 
 router.post('/image', upload.single('image'), ImageController.addiamge)
-// router.patch('/image',  ImageController.updateiamge)
+router.patch('/image',  ImageController.updateiamge)
 
 
  module.exports=router    
