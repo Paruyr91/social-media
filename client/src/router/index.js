@@ -28,6 +28,11 @@ const router = new VueRouter({
           path: 'register',
           name: 'register',
           component: () => import('@/views/Auth/Register/Index')
+        },
+        {
+          path: 'verify-account/:token',
+          name: 'verify-account',
+          component: () => import('@/views/Auth/VerifyAccount/Index')
         }
       ]
     }
