@@ -4,7 +4,7 @@ const bodyParser=require('body-parser')
 const server=require('http').Server(app)
 require('dotenv').config()
 const db= require('./server/models/index')
-const PORT=process.env.PORT || 3030
+const PORT=process.env.PORT || 8080
 const apirouter=require('./server/routes/apirouter')
 const clientrouter=require('./server/routes/clientrouter')
 const session=require('express-session')
@@ -31,7 +31,7 @@ app.use(
 
 
 app.use('/api/v1/',apirouter)
-// app.use( clientrouter)
+app.use( clientrouter)
 
 
 db.sync().then(function() {
