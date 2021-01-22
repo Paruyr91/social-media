@@ -1,5 +1,5 @@
 const User= require('../models/user')
-const uloadfile= require('../authservice/uloadfaile')
+
 
 const multer = require('multer')
 const cloudinary = require('cloudinary').v2
@@ -36,22 +36,6 @@ const storage = multer.diskStorage({
                }
             }
 
-
-      // console.log(req.body,'lll')
-      // console.log(req.file)
-
-            // if(req.file){
-            //    try{
-            //       let file= await  uloadfile(req,res)
-                   
-            //    }catch(error){
-            //       res.status(404).send({error:'Clodinary connection not found'})
-            //    }
-             
-            // console.log(file,'ggggggggggggggggggggggggggg')
-
-            // }
-            
            user.save().then(a=>{
                res.send({success:true})
            }).catch(err=>{
@@ -59,11 +43,6 @@ const storage = multer.diskStorage({
            })
 
           }else res.status(404).send({error:'not found'})
-
- 
-
-
-
 
     }
 
