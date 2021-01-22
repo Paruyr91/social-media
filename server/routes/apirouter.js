@@ -21,17 +21,6 @@ let upload=multer({storage:storage})
 
 router.use(checktoken)
 
-router.get('/', async (req, res)=>{
-let data
-    await User.findAll().then(function(item){
-        data=item
-           
-         }).catch(function (err) {
-             console.log(err)
-         });
-
-    res.send(data)
-}) 
 
  
 router.post(`/register`, RegisterController.registerUser)

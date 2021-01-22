@@ -31,7 +31,7 @@ app.use(
 
 
 app.use('/api/v1/',apirouter)
-app.use('/', clientrouter)
+app.use( clientrouter)
 
 
 db.sync().then(function() {
