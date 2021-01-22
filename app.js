@@ -6,15 +6,19 @@ require('dotenv').config()
 const db= require('./server/models/index')
 const PORT=process.env.PORT || 8080
 const apirouter=require('./server/routes/apirouter')
+const clientrouter=require('./server/routes/clientrouter')
 const session=require('express-session')
 const cors=require('cors')
-app.use(express.static('public'))
+app.use(express.static('server/public'))
 app.use(bodyParser.urlencoded({
-    extended:false
+    extended:false,
+   
 }))
 app.use(cors())
 app.use(bodyParser.json())
-app.use(express.json())
+
+app.use(express.json());
+
 
 app.use(
   session({
@@ -27,7 +31,7 @@ app.use(
 
 
 app.use('/api/v1/',apirouter)
-
+app.use('/', clientrouter)
 
 
 db.sync().then(function() {
