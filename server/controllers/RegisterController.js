@@ -4,7 +4,8 @@ const bcrypt=require('bcrypt')
 const accesstoken=require('../authservice/token')
 const jwt = require( 'jsonwebtoken' );
 const sendmail=require('../authservice/nodemailer')
-
+const { Sequelize, Op, Model, DataTypes} = require('sequelize');
+const Image= require('../models/image')
 const URL=process.env.ROOT_URL || 'http://localhost:8080/'
 
 
@@ -63,7 +64,15 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
     async loginUser(req,res){
         let user;
         const error =await User.findOne({
-        where: {email:req.body.email,}
+
+        where: {email:req.body.email},
+        include: {
+            model: Image,
+            where:{
+                 profilepic:{[Op.ne]:false,  } 
+            },
+            attributes: ['imagedata']
+          }
         }).then(function(us) {
             if(us){
                 if(!bcrypt.compareSync(req.body.password,us.dataValues.password)){

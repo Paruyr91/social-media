@@ -48,6 +48,9 @@ const storage = multer.diskStorage({
         }else res.status(412).send({success:false,error:'file not found'})
           
     }
+    async updateiamge(req,res){
+        
+    }
 
 
  }
