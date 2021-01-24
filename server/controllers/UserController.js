@@ -1,19 +1,6 @@
 const User= require('../models/user')
 
 
-const multer = require('multer')
-const cloudinary = require('cloudinary').v2
-const fs = require('fs')
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './server/uploads')
-  },
-  filename: function(req, file, cb) {
-    console.log(file)
-    cb(null, file.originalname)
-  }
-})
-
   class UserControler{
     constructor(){
     
@@ -27,8 +14,6 @@ const storage = multer.diskStorage({
           })
 
           if(user){
-
-            console.log(req.body,req.file)
 
             if(req.body){
                for(let i in req.body){

@@ -74,7 +74,7 @@ const sequelize = require('./index')
    
   
 
- //User.sync({force:true}) 
+//  User.sync({force:true}) 
  
  
  

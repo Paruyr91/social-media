@@ -29,7 +29,7 @@ const Image = sequelize.define("images", {
     
   
 
-//Image.sync({force:true}) 
+// Image.sync({force:true}) 
  
   
  module.exports=Image
