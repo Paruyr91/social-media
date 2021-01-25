@@ -1,10 +1,10 @@
 
 const { Sequelize, Op, Model, DataTypes} = require('sequelize');
 const sequelize = require('./index')
-  const bcrypt=require('bcrypt');
-  const hashNumber=10
+const bcrypt=require('bcrypt');
+const hashNumber=10
 
-  const User = sequelize.define("users", {
+const User = sequelize.define("users", {
     email: {type: DataTypes.STRING,
                allowNull:false,
                validate: {
@@ -53,31 +53,23 @@ const sequelize = require('./index')
     activated:{type:Sequelize.BOOLEAN, 
                allowNull: false, 
                defaultValue:false
-               }
-
-             
-  });
-
-
- 
-  User.beforeCreate(async (user) => {
-    user.password= await bcrypt.hashSync(user.password,hashNumber);
+               }      
   });
  
+User.beforeCreate(async (user) => {
+  user.password= await bcrypt.hashSync(user.password,hashNumber);
+});
  
- 
-  User.beforeUpdate(async (user) => {
-    user.password= await bcrypt.hashSync(user.password,hashNumber);
-    
-  });
+User.beforeUpdate(async (user) => {
+  if(user.dataValues.password!==user._previousDataValues.password){
+      user.password= await bcrypt.hashSync(user.password,hashNumber);
+  }
+});
    
-  
 
 //  User.sync({force:true}) 
  
- 
- 
-  module.exports=User
+module.exports=User
  
  
  
