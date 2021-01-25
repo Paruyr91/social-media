@@ -25,15 +25,14 @@ export default {
   .primary-input__label {
     font-size: 0.875rem;
     margin-bottom: 5px;
-    color: #434343;
+    color: #6d6d6d;
   }
   .primary-input__field {
     display: block;
     width: 100%;
     height: $input-height;
-    // line-height: $input-height;
     padding: 0 $input-padding;
-    border: 1px solid #535353;
+    border: 1px solid #828282;
     border-radius: $input-radius;
     outline: none;
 

@@ -18,6 +18,8 @@ import store from './store'
 
 Vue.use(VeeValidate)
 
+Vue.prototype.$eventEmitter = new Vue()
+
 Vue.config.productionTip = false
 
 new Vue({
