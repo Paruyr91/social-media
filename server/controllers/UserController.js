@@ -8,7 +8,8 @@ const User= require('../models/user')
 
 
 
-    async updateuser(req,res){
+    async updateUser(req,res){
+       
         let user= await User.findOne({
             where: {id:req.decoded.id}
           })
@@ -31,7 +32,7 @@ const User= require('../models/user')
 
     }
 
-    async deleteuser(req,res){
+    async deleteUser(req,res){
          await User.destroy({
             where: {id:req.decoded.id}
             }).then(a=>{

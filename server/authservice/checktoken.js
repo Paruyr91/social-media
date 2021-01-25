@@ -24,5 +24,3 @@ module.exports=function checktoken(req,res,next){
         })
     } 
 }
-
-// ww.com/verify--/token 
