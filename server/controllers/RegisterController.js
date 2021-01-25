@@ -1,13 +1,7 @@
-const expres = require('express')
 const User= require('../models/user')
 const bcrypt=require('bcrypt')
 const accesstoken=require('../authservice/token')
-const jwt = require( 'jsonwebtoken' );
 const sendmail=require('../authservice/nodemailer')
-const { Sequelize, Op, Model, DataTypes} = require('sequelize');
-const Image= require('../models/image')
-const URL=process.env.ROOT_URL || 'http://localhost:8080/'
-
 
   class RegisterControler{
     constructor(){
