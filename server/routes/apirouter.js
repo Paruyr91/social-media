@@ -16,12 +16,13 @@ router.use(checktoken)
  
 router.post(`/register`, RegisterController.registerUser)
 router.post(`/login`, RegisterController.loginUser)
+router.post(`/verify-account`, RegisterController.verifyAccount)
 
-router.patch('/user', UserController.updateuser)
-router.delete('/user', UserController.deleteuser)
+router.patch('/user', UserController.updateUser)
+router.delete('/user', UserController.deleteUser)
 
-router.post('/image', ImageController.addiamge)
-router.patch('/image',  ImageController.updateiamge)
+router.post('/image', ImageController.addIamge)
+router.patch('/image/:id',  ImageController.updateProfilepic)
 
 
  module.exports=router    

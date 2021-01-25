@@ -17,7 +17,7 @@ module.exports= async function main(user, token,url) {
   });
   console.log(url)
   let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <paruyrars@gmail.com>',
+    from: '"ACTIVATION 👻" <paruyrars@gmail.com>',
     to:user.email,
     subject: "Hello ✔", 
     text: "Hello world?", 

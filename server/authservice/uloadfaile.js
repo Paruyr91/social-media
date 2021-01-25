@@ -2,9 +2,6 @@ const cloudinary = require('cloudinary').v2
 const fs = require('fs')
 
 module.exports=function upload(req,res){
-
-    console.log(req.file,'llllllllllllll')
-
             const path = req.file.path
             const uniqueFilename = new Date().toISOString()
                 return  cloudinary.uploader.upload(
