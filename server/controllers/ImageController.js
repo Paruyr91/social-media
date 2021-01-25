@@ -20,7 +20,7 @@ const storage=multer.diskStorage({
     
     }
 
-    async addiamge(req,res){
+    async addIamge(req,res){
 
         const upload = multer({ storage }).single('image')
         upload(req, res,async function(err) {
@@ -28,34 +28,23 @@ const storage=multer.diskStorage({
               console.log(err)
             return res.send(err)
           }
-
           let image
-        
           if(req.file){
               try{
                   image= await  uloadfile(req,res)
-                  
               }catch(error){
                   res.status(404).send({error:'Clodinary connection not found'})
               }
-  
-              console.log(req.decoded.id)
-  
               await Image.create({ 
                   imagedata:JSON.stringify(image),
                   profilepic:req.body?.profilepic,
                   userId:req.decoded.id
-      
                   }).then(function(item){
                       res.send({success:true})
                   }).catch(function (err) {
                       res.status(412).send({success:false,error:err})
                   });
-  
-                  
           }else res.status(412).send({success:false,error:'file not found'})
-         
-
         })
 
       
@@ -65,10 +54,30 @@ const storage=multer.diskStorage({
     }
 
 
-    async updateiamge(req,res){
+    async updateProfilepic(req,res){
+      let param=Number(req.params.id)
+        if(param && req.body.profilepic){
+           await  Image.findAll({
+                            where: {userId:req.decoded.id}
+                     }).then((item)=>{
+                             let exist=item.filter(a=>a.id===param)
+                            if(exist[0]){
+                                item.map(e=>{ 
+                                    if(e.id===param){
+                                        e.profilepic=true
+                                    }else e.profilepic=false
+                                    e.save()
+                                })
+                                res.send({success:true})
+                            }else res.status(412).send({success:false,error:'image not found'})
+                     
+                    }).catch(function (err) {
+                        res.status(412).send({success:false,error:err})
+                    });
 
+        } else res.status(404).send({error:'param must be number or body must exteand profilepic'})
     }
 
-
+  
  }
 module.exports= new ImageControler

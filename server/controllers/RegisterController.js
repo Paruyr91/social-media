@@ -1,12 +1,13 @@
-const expres = require('express')
 const User= require('../models/user')
 const bcrypt=require('bcrypt')
 const accesstoken=require('../authservice/token')
-const jwt = require( 'jsonwebtoken' );
 const sendmail=require('../authservice/nodemailer')
-const { Sequelize, Op, Model, DataTypes} = require('sequelize');
+const jwt = require('jsonwebtoken');
+const secret =process.env.SECRET_TOKEN_KEY
+
 const Image= require('../models/image')
-const URL=process.env.ROOT_URL || 'http://localhost:8080/'
+const { Sequelize, Op, Model, DataTypes} = require('sequelize');
+const e = require('express');
 
 
   class RegisterControler{
@@ -65,14 +66,8 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
         let user;
         const error =await User.findOne({
 
-        where: {email:req.body.email}
-        // include: {
-        //     model: Image,
-        //     where:{
-        //          profilepic:{[Op.ne]:false,  } 
-        //     },
-        //     attributes: ['imagedata']
-        //   }
+        where: {email:req.body.email},
+       
         }).then(function(us) {
             if(us){
                 if(!bcrypt.compareSync(req.body.password,us.dataValues.password)){
@@ -107,6 +102,51 @@ const URL=process.env.ROOT_URL || 'http://localhost:8080/'
                 expiertime:expiertime
             })
         }
+    }
+
+    async verifyAccount(req,res){
+        let error={
+            success:true
+        }
+        if(req.body.token){
+            try{
+                let decoded = jwt.verify(req.body.token, secret )
+                await User.findAll({
+                        where: {
+                            email:decoded.user.email,
+                            activated:false
+                        }
+                    }).then((item)=>{
+                        item.map(e=>{ 
+                            if(e.id===decoded.user.id){
+                                e.activated=true
+                                e.save()
+                            }else{
+                                e.destroy()
+                            }
+                        })
+                        if(e.length===0){
+                            error.message='accaunt already activated'
+                            error.success=false
+                        }
+                    }).catch(function (err) {
+                        error=err
+                        error.success=false
+                    });
+            }catch(err){
+                if(err.message === "Signature verification failed") resolve(false);
+                error=err
+                error.success=false
+            } 
+        }else {
+            error.message='token absent'
+            error.success=false
+        }
+
+        if(!error.success){
+            res.status(412).send({error:error})
+        }else res.send({success:true})
+
     }
 
 }

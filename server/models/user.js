@@ -7,13 +7,13 @@ const sequelize = require('./index')
   const User = sequelize.define("users", {
     email: {type: DataTypes.STRING,
                allowNull:false,
-               unique:true,
                validate: {
                    isEmail: true, 
                   async isunique(value) {
                     let olduser= await User.findOne({
                       where: {
                         email:value,
+                        activated:true
                       }
                     })
                      if(olduser){
@@ -22,7 +22,6 @@ const sequelize = require('./index')
                     },
                 },
             },
-
     password: {type: DataTypes.STRING,
                allowNull:false,
                validate: {
@@ -53,10 +52,10 @@ const sequelize = require('./index')
     }, 
     activated:{type:Sequelize.BOOLEAN, 
                allowNull: false, 
-               defaultValue:true
+               defaultValue:false
                }
 
-            
+             
   });
 
 
