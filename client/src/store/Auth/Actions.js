@@ -49,6 +49,17 @@ export default {
         reject(err)
       })
     })
+  },
+  VerifyAccount ({ commit }, token) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: 'user',
+        data: { activate: true },
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        method: 'PATCH'
+      }).then(res => resolve(res)).catch(err => reject(err.response.data))
+    })
   }
-
 }

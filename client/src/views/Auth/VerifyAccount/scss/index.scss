@@ -1,0 +1,49 @@
+.main-container {
+  min-height: 100vh;
+  height: 100%;
+
+  .bg-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: #d8e8f7;
+    clip-path: polygon(0 0, 100% 0, 100% 49%, 80% 56%, 59% 64%, 43% 71%, 28% 78%, 11% 88%, 0 95%);
+
+    .bg-effect__inner {
+      width: 100%;
+      height: 100%;   
+      background-color: #9ec8f0;
+      clip-path: polygon(0 0, 100% 0, 100% 17%, 80% 27%, 59% 40%, 43% 51%, 28% 62%, 11% 76%, 0 85%);
+    }
+  }
+
+  .main-container__inner {
+    width: 80%;
+    max-width: 800px;
+    max-height: 60vh;
+    padding: 2.2rem 0.86rem;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 14px -2px #888;
+
+    .main-container__inner--header {
+      font-size: 1.8rem;
+    }
+    .main-container__inner--text {
+      font-size: 1.2rem;
+    }
+    .main-container__inner--link {
+      color: $primary;
+      text-decoration: underline;
+    }
+    .verification-icon {
+      width: 30%;
+      max-width: 160px;
+      height: auto;
+      margin: 0 auto;
+    }
+  }
+}
