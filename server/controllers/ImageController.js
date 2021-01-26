@@ -17,40 +17,46 @@ const storage=multer.diskStorage({
     constructor(){
     
     }
+    async getIamges(req,res){
+     await DB.Image.findAll({
+        where:{
+          userId:req.decoded.id
+        }
+      }).then(items=>{
+        res.send(items)
+      }).catch(err=>{
+        res.status(404).send(err)
+      })
+    }
 
     async addIamge(req,res){
-
         const upload = multer({ storage }).single('image')
         upload(req, res,async function(err) {
           if (err) {
-              console.log(err)
             return res.send(err)
           }
           let image
           if(req.file){
               try{
-                  image= await  uloadfile(req,res)
+                  image=await uloadfile(req,res)
               }catch(error){
                   res.status(404).send({error:'Clodinary connection not found'})
               }
-              await DB.Image.create({ 
+             let img= await DB.Image.create({ 
                   imagedata:JSON.stringify(image),
-                  profilepic:req.body?.profilepic,
                   userId:req.decoded.id
-                  }).then(function(item){
-                      res.send({success:true})
-                  }).catch(function (err) {
-                      res.status(412).send({success:false,error:err})
-                  });
+                  }) 
+                  res.send({success:true})
+                  if(img){
+                    const [pic, created] = await DB.Profilepic.findOrCreate({
+                      where: {userId: req.decoded.id}
+                       });
+                      pic.imageId=img.id
+                      pic.save()
+                  }
           }else res.status(412).send({success:false,error:'file not found'})
-        })
-
-      
-
-
-          
+        }) 
     }
-
 
     async updateProfileimage(req,res){
         let param=Number(req.params.id)

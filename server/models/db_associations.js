@@ -1,8 +1,8 @@
 const User = require('./user')
 const Profilepic = require('./profpic')
 const Image= require('./image')
+const FriendRequest= require('./friendRequst')
 
-const sequelize = require('./index')
 
 
 Image.belongsTo(User, {
@@ -50,19 +50,57 @@ User.hasMany(Image, {
     },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
-  })    
+  }) 
+  
+  
+  User.hasMany(FriendRequest, {
+    foreignKey: {
+      name: 'fromId',
+      allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+ User.hasMany(FriendRequest, {
+    foreignKey: {
+      name: 'toId',
+      allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
 
+  FriendRequest.belongsTo(User, {
+    foreignKey: {
+      name: 'toId',
+      allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+  FriendRequest.belongsTo(User, {
+    foreignKey: {
+      name:  'fromId',
+      allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
 
+FriendRequest.sync({ alter: true })  
 Profilepic.sync({ alter: true })  
 
 User.sync({ alter: true }) 
 Image.sync({ alter: true }) 
 
 
+
+
 const DB={
   User:User,
   Image:Image,
-  Profilepic:Profilepic
+  Profilepic:Profilepic,
+  FriendRequest:FriendRequest
 
 }
   

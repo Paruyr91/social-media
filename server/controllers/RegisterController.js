@@ -40,6 +40,16 @@ const secret =process.env.SECRET_TOKEN_KEY
         let user;
         const error =await DB.User.findOne({
         where: {email:req.body.email},
+        include: [{
+           model: DB.Profilepic,
+           as: 'profilepic',
+           attributes : ['imageId'],
+           include:[{
+               model:DB.Image,
+               as:'image',
+               attributes : ['imagedata'],
+            }]
+        }]
         }).then(function(us) {
             if(us){
                 if(!bcrypt.compareSync(req.body.password,us.dataValues.password)){
