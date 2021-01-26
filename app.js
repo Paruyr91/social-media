@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 
 app.use(express.json());
 
-
+ 
 app.use(
   session({
       secret:'keybord cat',
@@ -32,14 +32,15 @@ app.use(
 
 app.use('/api/v1/',apirouter)
 app.use( clientrouter)
-
+ 
 
 db.sync().then(function() {
-
-   server.listen(PORT, ()=>{
+  server.listen(PORT, ()=>{
       console.log(`server started at${PORT}`)
      }) 
 
-  });
+ });
+   
+ 
 
 

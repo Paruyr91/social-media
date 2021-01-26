@@ -22,7 +22,7 @@ router.patch('/user', UserController.updateUser)
 router.delete('/user', UserController.deleteUser)
 
 router.post('/image', ImageController.addIamge)
-router.patch('/image/:id',  ImageController.updateProfilepic)
-
+router.patch('/image/:id',  ImageController.updateProfileimage)
+router.delete('/image/:id', ImageController.deleteIamge)
 
  module.exports=router    
