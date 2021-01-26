@@ -5,6 +5,7 @@ const checktoken= require('../authservice/checktoken')
 const UserController = require('../controllers/UserController')
 
 const ImageController = require('../controllers/ImageController')
+const FriendRequestController = require('../controllers/FriendRequestController')
 
 
 
@@ -21,8 +22,11 @@ router.post(`/verify-account`, RegisterController.verifyAccount)
 router.patch('/user', UserController.updateUser)
 router.delete('/user', UserController.deleteUser)
 
+router.get('/image', ImageController.getIamges)
 router.post('/image', ImageController.addIamge)
 router.patch('/image/:id',  ImageController.updateProfileimage)
 router.delete('/image/:id', ImageController.deleteIamge)
+
+router.post('/friend-request/:userid', FriendRequestController.addRequest)
 
  module.exports=router    
