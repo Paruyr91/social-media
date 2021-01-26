@@ -1,18 +1,5 @@
-const User= require('../models/user')
+const DB= require('../models/db_associations')
 
-
-const multer = require('multer')
-const cloudinary = require('cloudinary').v2
-const fs = require('fs')
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, './server/uploads')
-  },
-  filename: function(req, file, cb) {
-    console.log(file)
-    cb(null, file.originalname)
-  }
-})
 
   class UserControler{
     constructor(){
@@ -21,14 +8,13 @@ const storage = multer.diskStorage({
 
 
 
-    async updateuser(req,res){
-        let user= await User.findOne({
+    async updateUser(req,res){
+       
+        let user= await DB.User.findOne({
             where: {id:req.decoded.id}
           })
 
           if(user){
-
-            console.log(req.body,req.file)
 
             if(req.body){
                for(let i in req.body){
@@ -46,8 +32,8 @@ const storage = multer.diskStorage({
 
     }
 
-    async deleteuser(req,res){
-         await User.destroy({
+    async deleteUser(req,res){
+         await DB.User.destroy({
             where: {id:req.decoded.id}
             }).then(a=>{
                console.log(a)
@@ -58,4 +44,5 @@ const storage = multer.diskStorage({
     }
 
  }
+ 
 module.exports= new UserControler
