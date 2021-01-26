@@ -1,4 +1,4 @@
-const User= require('../models/user')
+const DB= require('../models/db_associations')
 const bcrypt=require('bcrypt')
 const accesstoken=require('../authservice/token')
 const sendmail=require('../authservice/nodemailer')
@@ -14,7 +14,7 @@ const secret =process.env.SECRET_TOKEN_KEY
         let user
         let success=false
         let error
-        await User.create({ 
+        await DB.User.create({ 
             email:req.body.email,
             password:req.body.password,
             name: req.body.name,
@@ -38,7 +38,7 @@ const secret =process.env.SECRET_TOKEN_KEY
     
     async loginUser(req,res){
         let user;
-        const error =await User.findOne({
+        const error =await DB.User.findOne({
         where: {email:req.body.email},
         }).then(function(us) {
             if(us){
@@ -111,4 +111,4 @@ const secret =process.env.SECRET_TOKEN_KEY
     }
 
 }
-module.exports= new RegisterControler
+module.exports= new RegisterControler 

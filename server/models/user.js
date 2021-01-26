@@ -3,7 +3,6 @@ const { Sequelize, Op, Model, DataTypes} = require('sequelize');
 const sequelize = require('./index')
 const bcrypt=require('bcrypt');
 const hashNumber=10
-
 const User = sequelize.define("users", {
     email: {type: DataTypes.STRING,
                allowNull:false,
@@ -52,7 +51,7 @@ const User = sequelize.define("users", {
     }, 
     activated:{type:Sequelize.BOOLEAN, 
                allowNull: false, 
-               defaultValue:false
+               defaultValue:true
                }      
   });
  
@@ -65,16 +64,17 @@ User.beforeUpdate(async (user) => {
       user.password= await bcrypt.hashSync(user.password,hashNumber);
   }
 });
-   
+ 
 
-//  User.sync({force:true}) 
+
+
  
 module.exports=User
  
  
- 
+  
  
 
 
- 
+  
     

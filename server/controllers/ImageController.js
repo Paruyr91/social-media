@@ -1,7 +1,5 @@
-const User= require('../models/user')
 const uloadfile= require('../authservice/uloadfaile')
-const Image= require('../models/image')
-
+const DB= require('../models/db_associations')
 const multer = require('multer')
 
 const storage=multer.diskStorage({
@@ -35,7 +33,7 @@ const storage=multer.diskStorage({
               }catch(error){
                   res.status(404).send({error:'Clodinary connection not found'})
               }
-              await Image.create({ 
+              await DB.Image.create({ 
                   imagedata:JSON.stringify(image),
                   profilepic:req.body?.profilepic,
                   userId:req.decoded.id
@@ -54,28 +52,42 @@ const storage=multer.diskStorage({
     }
 
 
-    async updateProfilepic(req,res){
-      let param=Number(req.params.id)
-        if(param && req.body.profilepic){
-           await  Image.findAll({
-                            where: {userId:req.decoded.id}
-                     }).then((item)=>{
-                             let exist=item.filter(a=>a.id===param)
-                            if(exist[0]){
-                                item.map(e=>{ 
-                                    if(e.id===param){
-                                        e.profilepic=true
-                                    }else e.profilepic=false
-                                    e.save()
-                                })
-                                res.send({success:true})
-                            }else res.status(412).send({success:false,error:'image not found'})
-                     
-                    }).catch(function (err) {
-                        res.status(412).send({success:false,error:err})
-                    });
-
+    async updateProfileimage(req,res){
+        let param=Number(req.params.id)
+        let imgexist=await DB.Image.findOne({
+          where:{
+            id:param,
+            userId: req.decoded.id
+          }
+        })
+        if(param && imgexist){
+        const [pic, created] = await DB.Profilepic.findOrCreate({
+            where: {userId: req.decoded.id}
+             });
+            pic.imageId=param
+            pic.save().then(item=>{
+              res.send({success:true})
+            }).catch(err=>{ 
+              res.status(412).send({error:'enter curect image Id'}) 
+            }) 
         } else res.status(404).send({error:'param must be number or body must exteand profilepic'})
+    }
+
+    async deleteIamge(req,res){
+      let param=Number(req.params.id)
+      if(param){
+        await DB.Image.destroy({
+          where: {
+            id:param,
+            userId:req.decoded.id
+          }
+          }).then(a=>{
+          res.send({success:true})
+       }).catch(err=>{
+          res.status(404).send({success:false,error:err})
+       })
+      }else  res.status(404).send({success:false,error:"enter currect image ID"})
+
     }
 
   

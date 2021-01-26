@@ -1,4 +1,4 @@
-const User= require('../models/user')
+const DB= require('../models/db_associations')
 
 
   class UserControler{
@@ -10,7 +10,7 @@ const User= require('../models/user')
 
     async updateUser(req,res){
        
-        let user= await User.findOne({
+        let user= await DB.User.findOne({
             where: {id:req.decoded.id}
           })
 
@@ -33,7 +33,7 @@ const User= require('../models/user')
     }
 
     async deleteUser(req,res){
-         await User.destroy({
+         await DB.User.destroy({
             where: {id:req.decoded.id}
             }).then(a=>{
                console.log(a)
@@ -44,4 +44,5 @@ const User= require('../models/user')
     }
 
  }
+ 
 module.exports= new UserControler
