@@ -7,7 +7,7 @@ const FriendRequest= require('./friendRequst')
 
 Image.belongsTo(User, {
   foreignKey: {
-    allowNull: true
+    allowNull: false
   },
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
@@ -15,7 +15,7 @@ Image.belongsTo(User, {
 
 User.hasMany(Image, {
     foreignKey: {
-      allowNull: true
+      allowNull: false
     },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
