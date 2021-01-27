@@ -33,7 +33,7 @@ const storage=multer.diskStorage({
         const upload = multer({ storage }).single('image')
         upload(req, res,async function(err) {
           if (err) {
-            return res.send(err)
+            return res.status(404).send({err:err,multer:'multer'})
           }
           let image
           if(req.file){
@@ -54,7 +54,6 @@ const storage=multer.diskStorage({
               }catch(error){
                   res.status(404).send({error:'Clodinary connection not found'})
               }
-
           }else res.status(412).send({success:false,error:'file not found'})
         }) 
     }
