@@ -39,21 +39,22 @@ const storage=multer.diskStorage({
           if(req.file){
               try{
                   image=await uloadfile(req,res)
+                  let img= await DB.Image.create({ 
+                    imagedata:JSON.stringify(image),
+                    userId:req.decoded.id
+                    }) 
+                    res.send({success:true})
+                    if(img){
+                      const [pic, created] = await DB.Profilepic.findOrCreate({
+                        where: {userId: req.decoded.id}
+                         });
+                        pic.imageId=img.id
+                        pic.save()
+                    }
               }catch(error){
                   res.status(404).send({error:'Clodinary connection not found'})
               }
-             let img= await DB.Image.create({ 
-                  imagedata:JSON.stringify(image),
-                  userId:req.decoded.id
-                  }) 
-                  res.send({success:true})
-                  if(img){
-                    const [pic, created] = await DB.Profilepic.findOrCreate({
-                      where: {userId: req.decoded.id}
-                       });
-                      pic.imageId=img.id
-                      pic.save()
-                  }
+
           }else res.status(412).send({success:false,error:'file not found'})
         }) 
     }
