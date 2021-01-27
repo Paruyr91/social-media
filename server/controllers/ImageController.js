@@ -30,18 +30,9 @@ const DB= require('../models/db_associations')
     }
 
     async addIamge(req,res){
-        // const upload = multer({ storage }).single('image')
-        // upload(req, res,async function(err) {
-        //   if (err) {
-        //     return res.status(404).send({err:err,multer:'multer'})
-        //   }
-        console.log(req.file)
-          let image
           if(req.file){
-              try{
-                  image=await uloadfile(req,res)
                   let img= await DB.Image.create({ 
-                    imagedata:JSON.stringify(image),
+                    imagedata:JSON.stringify(req.file),
                     userId:req.decoded.id
                     }) 
                     res.send({success:true})
@@ -52,11 +43,7 @@ const DB= require('../models/db_associations')
                         pic.imageId=img.id
                         pic.save()
                     }
-              }catch(error){
-                  res.status(404).send({error:'Clodinary connection not found'})
-              }
           }else res.status(412).send({success:false,error:'file not found'})
-        // }) 
     }
 
     async updateProfileimage(req,res){

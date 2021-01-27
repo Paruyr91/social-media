@@ -10,7 +10,7 @@ module.exports=function upload(req,res){
                     function(err, image) {
                     if (err) return err
                     console.log('file uploaded to Cloudinary')
-                    fs.unlinkSync(path)
+                    // fs.unlinkSync(path)
                     return image
                     }
                 )
