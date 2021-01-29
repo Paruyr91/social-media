@@ -23,6 +23,11 @@ router.post('/image',parsercloudinary.single('image'),  ImageController.addIamge
 router.patch('/image/:id',  ImageController.updateProfileimage)
 router.delete('/image/:id', ImageController.deleteIamge)
 
-router.post('/friend-request/:userid', FriendRequestController.addRequest)
+router.get('/addfriend', FriendRequestController.friendsRequests)
+router.post('/addfriend/:userid', FriendRequestController.addRequest)
+router.patch('/addfriend/:userid', FriendRequestController.addToFriends)
 
- module.exports=router    
+
+ 
+
+module.exports=router     

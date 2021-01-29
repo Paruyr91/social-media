@@ -51,7 +51,7 @@ const User = sequelize.define("users", {
     }, 
     activated:{type:Sequelize.BOOLEAN, 
                allowNull: false, 
-               defaultValue:true
+               defaultValue:false
                }      
   });
  
