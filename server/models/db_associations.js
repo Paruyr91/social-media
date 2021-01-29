@@ -1,7 +1,7 @@
 const User = require('./user')
 const Profilepic = require('./profpic')
 const Image= require('./image')
-const FriendRequest= require('./friendRequst')
+const Request= require('./friendRequst')
 
 
 
@@ -53,7 +53,7 @@ User.hasMany(Image, {
   }) 
   
   
-  User.hasMany(FriendRequest, {
+  User.hasMany(Request, {
     foreignKey: {
       name: 'fromId',
       allowNull: false
@@ -61,7 +61,7 @@ User.hasMany(Image, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
- User.hasMany(FriendRequest, {
+ User.hasMany(Request, {
     foreignKey: {
       name: 'toId',
       allowNull: false
@@ -70,7 +70,7 @@ User.hasMany(Image, {
     onUpdate: 'CASCADE',
   });
 
-  FriendRequest.belongsTo(User, {
+  Request.belongsTo(User, {
     foreignKey: {
       name: 'toId',
       allowNull: false
@@ -78,7 +78,7 @@ User.hasMany(Image, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
-  FriendRequest.belongsTo(User, {
+  Request.belongsTo(User, {
     foreignKey: {
       name:  'fromId',
       allowNull: false
@@ -87,7 +87,7 @@ User.hasMany(Image, {
     onUpdate: 'CASCADE',
   });
 
-FriendRequest.sync({ alter: true })  
+Request.sync({ alter: true })  
 Profilepic.sync({ alter: true })  
 
 User.sync({ alter: true }) 
@@ -100,7 +100,7 @@ const DB={
   User:User,
   Image:Image,
   Profilepic:Profilepic,
-  FriendRequest:FriendRequest
+  Request:Request
 
 }
   
