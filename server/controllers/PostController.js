@@ -44,11 +44,10 @@ const DB= require('../models/db_associations')
               id:param,
               userId:req.decoded.id
             }
-            }).then(a=>{
-            res.send({success:true})
-         }).catch(err=>{
-            res.status(404).send({success:false,error:err})
-         })
+            }).then(deleted=>{
+                deleted?res.send({success:true})
+                       :res.status(404).send({success:false,error:"enter currect Post Id"})
+         }).catch(err=> res.status(404).send({success:false,error:err}))
         }else  res.status(404).send({success:false,error:"enter currect Post Id"})
   
     }
