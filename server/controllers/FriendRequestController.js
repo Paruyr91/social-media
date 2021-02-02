@@ -1,6 +1,4 @@
 const DB= require('../models/db_associations')
-const { Sequelize, Op, Model, DataTypes, where} = require('sequelize');
-
 
   class FriendRequestControler{
     constructor(){

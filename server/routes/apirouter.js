@@ -7,6 +7,7 @@ const parsercloudinary =require('../authservice/parsercloudinary ')
 
 const ImageController = require('../controllers/ImageController')
 const FriendRequestController = require('../controllers/FriendRequestController')
+const PostController = require('../controllers/PostController')
 
 router.use(checktoken)
 
@@ -28,6 +29,13 @@ router.get('/image', ImageController.getIamges)
 router.post('/image',parsercloudinary.single('image'),  ImageController.addIamge)
 router.patch('/image/:id',  ImageController.updateProfileimage)
 router.delete('/image/:id', ImageController.deleteIamge)
+
+router.post('/post',parsercloudinary.single('image'), PostController.addPost)
+router.patch('/post/:id',parsercloudinary.single('image'), PostController.udatePost)
+router.delete('/post/:id', PostController.deletePost)
+
+
+
 
 
 
