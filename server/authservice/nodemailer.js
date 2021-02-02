@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 
 // https://accounts.google.com/b/0/DisplayUnlockCaptcha
 
-module.exports= async function main(user, token,url) {
+module.exports= async function main(email, html) {
 
   let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -15,13 +15,12 @@ module.exports= async function main(user, token,url) {
       pass: "paruyrars!@#", 
     },
   });
-  console.log(url)
   let info = await transporter.sendMail({
     from: '"ACTIVATION 👻" <paruyrars@gmail.com>',
-    to:user.email,
+    to:email,
     subject: "Hello ✔", 
     text: "Hello world?", 
-    html: `<h1><a href="http://${url}/verify-account/${token}">Activate your account</a></h1>`, // html body
+    html:html // html body
   });
  
 }   

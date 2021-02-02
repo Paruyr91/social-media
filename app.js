@@ -12,7 +12,7 @@ const cors=require('cors')
 app.use(express.static('server/public'))
 app.use(bodyParser.urlencoded({
     extended:false,
-   
+     
 }))
 app.use(cors())
 app.use(bodyParser.json())

@@ -29,8 +29,9 @@ const secret =process.env.SECRET_TOKEN_KEY
             delete user.password
             delete user.activated
             let token =accesstoken(user) 
-            sendmail(user,token,req.headers.host).catch(console.error);
-            res.status(201).send({success,})
+            let html=`<h1><a href="http://${req.headers.host}/verify-account/${token}">Activate your account</a></h1>`
+            sendmail(user.emaii,html).catch(console.error);
+            res.status(201).send({success,token})
         }else{
             res.status(412).send({success:false,error:error})
         }
@@ -90,7 +91,7 @@ const secret =process.env.SECRET_TOKEN_KEY
         if(req.body.token){
             try{
                 let decoded = jwt.verify(req.body.token, secret )
-                await User.findAll({
+                await DB.User.findAll({
                         where: { email:decoded.user.email }
                     }).then((item)=>{
                         item.map( e=>{ 

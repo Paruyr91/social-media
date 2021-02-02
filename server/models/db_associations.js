@@ -1,13 +1,11 @@
 const User = require('./user')
 const Profilepic = require('./profpic')
 const Image= require('./image')
-const FriendRequest= require('./friendRequst')
-
 
 
 Image.belongsTo(User, {
   foreignKey: {
-    allowNull: true
+    allowNull: false
   },
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
@@ -15,7 +13,7 @@ Image.belongsTo(User, {
 
 User.hasMany(Image, {
     foreignKey: {
-      allowNull: true
+      allowNull: false
     },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
@@ -45,54 +43,34 @@ User.hasMany(Image, {
   })  
   
  User.hasOne(Profilepic, {
-    foreignKey: {
-      allowNull: true
-    },
+    foreignKey: {  allowNull: true },
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   }) 
-  
-  
-  User.hasMany(FriendRequest, {
-    foreignKey: {
-      name: 'fromId',
-      allowNull: false
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
- User.hasMany(FriendRequest, {
-    foreignKey: {
-      name: 'toId',
-      allowNull: false
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
 
-  FriendRequest.belongsTo(User, {
-    foreignKey: {
-      name: 'toId',
-      allowNull: false
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-  FriendRequest.belongsTo(User, {
-    foreignKey: {
-      name:  'fromId',
-      allowNull: false
-    },
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
 
-FriendRequest.sync({ alter: true })  
+User.belongsToMany(User, {
+    as: 'Friends', 
+    through: 'friends'
+  });
+User.belongsToMany(User, { 
+    as: 'FromId', 
+    through: 'friendRequests',
+    foreignKey: 'ToId',
+    onDelete: 'CASCADE'
+  });
+User.belongsToMany(User, { 
+    as: 'ToId',
+    through: 'friendRequests',
+    foreignKey: 'FromId',
+    onDelete: 'CASCADE'
+  });
+  
+
+ 
 Profilepic.sync({ alter: true })  
-
 User.sync({ alter: true }) 
 Image.sync({ alter: true }) 
-
 
 
 
@@ -100,7 +78,6 @@ const DB={
   User:User,
   Image:Image,
   Profilepic:Profilepic,
-  FriendRequest:FriendRequest
 
 }
   

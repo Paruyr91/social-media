@@ -9,27 +9,21 @@ const DB= require('../models/db_associations')
 
 
     async updateUser(req,res){
-       
         let user= await DB.User.findOne({
             where: {id:req.decoded.id}
           })
-
-          if(user){
-
-            if(req.body){
-               for(let i in req.body){
-                     user[i]=req.body[i]
-               }
-            }
-
-           user.save().then(a=>{
-               res.send({success:true})
-           }).catch(err=>{
-              res.status(412).send({success:false,error:err})
-           })
-
-          }else res.status(404).send({error:'not found'})
-
+         if(user, req.body){
+            if(req.body.name)user.name=req.body.name
+            if(req.body.surname)user.surname=req.body.surname
+            if(req.body.bourn_at)user.bourn_at=req.body.bourn_at
+            if(user.changed()){      
+                  user.save().then(a=>{
+                        res.send({success:true})
+                  }).catch(err=>{
+                        res.status(412).send({success:false,error:err})
+                  })
+            }else res.status(404).send({success:false, error:'Enter new Data'})
+          }else res.status(404).send({success:false, error:'not found'})
     }
 
     async deleteUser(req,res){
