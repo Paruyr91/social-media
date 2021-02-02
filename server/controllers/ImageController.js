@@ -1,7 +1,4 @@
-
 const DB= require('../models/db_associations')
-
-
 
   class ImageControler{
     constructor(){

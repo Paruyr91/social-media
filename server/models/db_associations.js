@@ -1,7 +1,7 @@
 const User = require('./user')
 const Profilepic = require('./profpic')
 const Image= require('./image')
-
+const Post=require('./post')
 
 Image.belongsTo(User, {
   foreignKey: {
@@ -65,20 +65,38 @@ User.belongsToMany(User, {
     foreignKey: 'FromId',
     onDelete: 'CASCADE'
   });
+
+
+  Post.belongsTo(User, {
+    foreignKey: {
+      allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
+  
+  User.hasMany(Post, {
+      foreignKey: {
+        allowNull: false
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    });
+  
   
 
  
 Profilepic.sync({ alter: true })  
 User.sync({ alter: true }) 
 Image.sync({ alter: true }) 
-
+Post.sync({ alter: true }) 
 
 
 const DB={
   User:User,
   Image:Image,
   Profilepic:Profilepic,
-
+  Post:Post
 }
   
 module.exports = DB
