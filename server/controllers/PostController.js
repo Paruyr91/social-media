@@ -49,7 +49,6 @@ const DB= require('../models/db_associations')
                        :res.status(404).send({success:false,error:"enter currect Post Id"})
          }).catch(err=> res.status(404).send({success:false,error:err}))
         }else  res.status(404).send({success:false,error:"enter currect Post Id"})
-  
     }
   
  }
