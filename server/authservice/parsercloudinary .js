@@ -7,7 +7,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'blog',
-      format: async (req, file) =>{ 'jpeg','png','jpg'}, // supports promises as well
+      allowed_formats: ['jpg', 'png'],
       public_id: (req, file) => new Date().toISOString(),
     },
   });

@@ -18,14 +18,17 @@ router.post(`/verify-account`, RegisterController.verifyAccount)
 router.patch('/user', UserController.updateUser)
 router.delete('/user', UserController.deleteUser)
 
+router.get('/friend/:param', FriendRequestController.getFriends)
+router.post('/friend/:id', FriendRequestController.addRequest)
+router.patch('/friend/:id', FriendRequestController.addToFriends)
+router.delete('/friend/:id', FriendRequestController.deleteFriends)
+
+
 router.get('/image', ImageController.getIamges)
 router.post('/image',parsercloudinary.single('image'),  ImageController.addIamge)
 router.patch('/image/:id',  ImageController.updateProfileimage)
 router.delete('/image/:id', ImageController.deleteIamge)
 
-router.get('/addfriend', FriendRequestController.friendsRequests)
-router.post('/addfriend/:userid', FriendRequestController.addRequest)
-router.patch('/addfriend/:userid', FriendRequestController.addToFriends)
 
 
  
