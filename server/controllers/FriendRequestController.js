@@ -24,7 +24,7 @@ const DB= require('../models/db_associations')
           }) 
           let me=user.rows[0]
           const friends= await me[`get${param}`]({ 
-            limit:limit?limit:1,
+            limit:limit?limit:5,
             offset:offset?offset:0,
             attributes : ['id','name','email','surname','bourn_at'],
             include: [{

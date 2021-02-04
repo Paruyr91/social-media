@@ -17,12 +17,13 @@ const DB= require('../models/db_associations')
     
     async udatePost(req,res){
         let param=Number(req.params.id)
-        let post= await DB.Post.findOne({
+        let post
+       param? post= await DB.Post.findOne({
             where: {
                 userId:req.decoded.id,
                 id:param
             }
-          })
+          }):null
          if(post){
             if(req.body.title)post.title=req.body.title
             if(req.body.text)post.text=req.body.text
