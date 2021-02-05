@@ -1,40 +1,41 @@
 const express = require('express')
-const RegisterController = require('../controllers/RegisterController')
 const router= express.Router()
 const checktoken= require('../authservice/checktoken')
-const UserController = require('../controllers/UserController')
 const parsercloudinary =require('../authservice/parsercloudinary ')
-
-const ImageController = require('../controllers/ImageController')
-const FriendRequestController = require('../controllers/FriendRequestController')
-const PostController = require('../controllers/PostController')
-
+const {getIamges, addIamge, updateProfileimage, deleteIamge } = require('../controllers/ImageController')
+const { registerUser, loginUser, verifyAccount } = require('../controllers/RegisterController')
+const {getFriends,addRequest,addToFriends, deleteFriends} = require('../controllers/FriendRequestController')
+const {updateUser,deleteUser} = require('../controllers/UserController')
+const {addPost, udatePost, deletePost}= require('../controllers/PostController')
+const {addComent, updateComent, deleteComent}=require('../controllers/ComentController')
 router.use(checktoken)
 
 
-router.post(`/register`, RegisterController.registerUser)
-router.post(`/login`, RegisterController.loginUser)
-router.post(`/verify-account`, RegisterController.verifyAccount)
+router.post(`/register`, registerUser)
+router.post(`/login`, loginUser)
+router.post(`/verify-account`, verifyAccount)
 
-router.patch('/user', UserController.updateUser)
-router.delete('/user', UserController.deleteUser)
+router.patch('/user', updateUser)
+router.delete('/user', deleteUser)
 
-router.get('/friend/:param', FriendRequestController.getFriends)
-router.post('/friend/:id', FriendRequestController.addRequest)
-router.patch('/friend/:id', FriendRequestController.addToFriends)
-router.delete('/friend/:id', FriendRequestController.deleteFriends)
-
-
-router.get('/image', ImageController.getIamges)
-router.post('/image',parsercloudinary.single('image'),  ImageController.addIamge)
-router.patch('/image/:id',  ImageController.updateProfileimage)
-router.delete('/image/:id', ImageController.deleteIamge)
-
-router.post('/post',parsercloudinary.single('image'), PostController.addPost)
-router.patch('/post/:id',parsercloudinary.single('image'), PostController.udatePost)
-router.delete('/post/:id', PostController.deletePost)
+router.get('/friend/:param', getFriends)
+router.post('/friend/:id', addRequest)
+router.patch('/friend/:id', addToFriends)
+router.delete('/friend/:id', deleteFriends)
 
 
+router.get('/image/:userid', getIamges)
+router.post('/image',parsercloudinary.single('image'),  addIamge)
+router.patch('/image/:id', updateProfileimage)
+router.delete('/image/:id', deleteIamge)
+
+router.post('/post',parsercloudinary.single('image'), addPost)
+router.patch('/post/:id',parsercloudinary.single('image'), udatePost)
+router.delete('/post/:id', deletePost)
+
+router.post('/coment', addComent)
+router.patch('/coment/:id', updateComent)
+router.delete('/coment/:id',deleteComent)
 
 
 

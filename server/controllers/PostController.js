@@ -17,12 +17,13 @@ const DB= require('../models/db_associations')
     
     async udatePost(req,res){
         let param=Number(req.params.id)
-        let post= await DB.Post.findOne({
+        let post
+       param? post= await DB.Post.findOne({
             where: {
                 userId:req.decoded.id,
                 id:param
             }
-          })
+          }):null
          if(post){
             if(req.body.title)post.title=req.body.title
             if(req.body.text)post.text=req.body.text
@@ -44,13 +45,11 @@ const DB= require('../models/db_associations')
               id:param,
               userId:req.decoded.id
             }
-            }).then(a=>{
-            res.send({success:true})
-         }).catch(err=>{
-            res.status(404).send({success:false,error:err})
-         })
+            }).then(deleted=>{
+                deleted?res.status(201).send()
+                       :res.status(404).send({success:false,error:"enter currect Post Id"})
+         }).catch(err=> res.status(404).send({success:false,error:err}))
         }else  res.status(404).send({success:false,error:"enter currect Post Id"})
-  
     }
   
  }
