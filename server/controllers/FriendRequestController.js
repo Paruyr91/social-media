@@ -124,7 +124,7 @@ const DB= require('../models/db_associations')
             if(me.Friends.length && friend){
                  me.removeFriends(friendid)
                 friend.removeFriends(me.id) 
-                res.send({success:true})
+                res.status(201).send()
             }else res.status(412).send({error:'enter crect Id you are not friends'}) 
         }).catch(err=>res.status(404).send({error:err})) 
       }else res.status(412).send({error:'enter crect Id'}) 

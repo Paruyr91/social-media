@@ -38,6 +38,29 @@ const DB= require('../models/db_associations')
         }).catch(err=>res.status(412).send({error:err})) 
       }else res.status(404).send({error:'Enter currect Param'})
     }
+
+  async  deleteComent(req,res){
+      let comentid=Number(req.params.id) 
+      if(comentid){
+        await DB.Coment.findOne({
+              where: {
+                id:comentid,
+              },
+              include:[{
+                model:DB.Post,
+                as:'post',
+                required:true
+              }]
+          }).then(coment=>{
+            if(coment.userId===req.decoded.id || coment.post.userId===req.decoded.id){
+              coment.destroy()
+               res.status(201).send()
+            }else res.status(404).send({error:'dont have permission'})
+          }).catch(err=>{
+              res.status(404).send({success:false,error:err})
+          })
+      }else res.status(404).send({error:'Enter currect Param'})
+    }
  
  }
 module.exports= new ComentControler
