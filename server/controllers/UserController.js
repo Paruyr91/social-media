@@ -30,8 +30,7 @@ const DB= require('../models/db_associations')
          await DB.User.destroy({
             where: {id:req.decoded.id}
             }).then(a=>{
-               console.log(a)
-            res.send({success:true})
+               res.status(201).send()
          }).catch(err=>{
             res.status(404).send({success:false,error:err})
          })

@@ -74,7 +74,7 @@ const DB= require('../models/db_associations')
             userId:req.decoded.id
           }
           }).then(a=>{
-          res.send({success:true})
+            res.status(201).send()
        }).catch(err=>{
           res.status(404).send({success:false,error:err})
        })
