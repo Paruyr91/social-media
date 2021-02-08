@@ -3,6 +3,7 @@ const Profilepic = require('./profpic')
 const Image= require('./image')
 const Post=require('./post')
 const Coment=require('./coment')
+const Like=require('./like')
 
 Image.belongsTo(User,{
   foreignKey: {
@@ -111,6 +112,53 @@ Post.hasMany(Coment,{
   onUpdate: 'CASCADE',
 });
 
+Like.belongsTo(User,{
+  foreignKey: {
+    allowNull: false
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+User.hasMany(Like,{
+  foreignKey: {
+    allowNull: false
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+Like.belongsTo(Post,{
+  foreignKey: {
+    allowNull: true
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+Post.hasMany(Like,{
+  foreignKey: {
+    allowNull: true
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+Like.belongsTo(Image,{
+  foreignKey: {
+    allowNull: true
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+Image.hasMany(Like,{
+  foreignKey: {
+    allowNull: true
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
 
  
 Profilepic.sync({ alter: true })  
@@ -118,13 +166,15 @@ User.sync({ alter: true })
 Image.sync({ alter: true }) 
 Post.sync({ alter: true }) 
 Coment.sync({ alter: true }) 
+Like.sync({ alter: true }) 
 
 const DB={
   User:User,
   Image:Image,
   Profilepic:Profilepic,
   Post:Post,
-  Coment:Coment
+  Coment:Coment,
+  Like:Like
 }
   
 module.exports = DB

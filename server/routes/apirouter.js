@@ -8,6 +8,7 @@ const {getFriends,addRequest,addToFriends, deleteFriends} = require('../controll
 const {updateUser,deleteUser} = require('../controllers/UserController')
 const {addPost, udatePost, deletePost}= require('../controllers/PostController')
 const {addComent, updateComent, deleteComent}=require('../controllers/ComentController')
+const {addlike}=require('../controllers/LikeController')
 router.use(checktoken)
 
 
@@ -36,6 +37,8 @@ router.delete('/post/:id', deletePost)
 router.post('/coment', addComent)
 router.patch('/coment/:id', updateComent)
 router.delete('/coment/:id',deleteComent)
+
+ router.post('/like', addlike)
 
 
 
