@@ -1,9 +1,7 @@
 const DB= require('../models/db_associations')
 
   class ComentControler{
-    constructor(){
-    
-    }
+    constructor(){}
 
     async addComent(req,res){
           let user=await DB.User.findOne({where:{id:req.decoded.id}})
