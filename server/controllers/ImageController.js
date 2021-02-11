@@ -1,9 +1,8 @@
 const DB= require('../models/db_associations')
 
   class ImageControler{
-    constructor(){
+    constructor(){}
     
-    }
     async getIamges(req,res){
       let userid=Number(req.params.userid)    
       let user

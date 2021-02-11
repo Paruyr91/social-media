@@ -2,11 +2,7 @@ const DB= require('../models/db_associations')
 
 
   class UserControler{
-    constructor(){
-    
-    }
-
-
+    constructor(){}
 
     async updateUser(req,res){
         let user= await DB.User.findOne({

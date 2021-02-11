@@ -1,9 +1,8 @@
 const DB= require('../models/db_associations')
 
   class PostControler{
-    constructor(){
+    constructor(){}
     
-    }
     async addPost(req,res){
        await DB.Post.create({ 
         userId:req.decoded.id,  

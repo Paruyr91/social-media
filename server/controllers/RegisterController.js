@@ -6,9 +6,7 @@ const jwt = require('jsonwebtoken');
 const secret =process.env.SECRET_TOKEN_KEY
 
   class RegisterControler{
-    constructor(){
-    
-    }
+    constructor(){ }
 
     async registerUser(req,res){
         let user

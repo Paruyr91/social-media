@@ -1,9 +1,8 @@
 const DB= require('../models/db_associations')
 
   class FriendRequestControler{
-    constructor(){
+    constructor(){}
     
-    }
     async getFriends(req, res){
       let offset=Number(req.body.offset)
       let limit=Number(req.body.limit)
@@ -41,8 +40,6 @@ const DB= require('../models/db_associations')
            res.send({count:user.count,friends:friends})
       }else  res.status(404).send({error:'enter curect param'}) 
     }
-
-  
 
     async addRequest(req,res){
         let friendid=Number(req.params.id)
